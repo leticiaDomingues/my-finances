@@ -1,0 +1,39 @@
+.Home {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.Home .cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.Home .card {
+    width: 350px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: #5a189a;
+    color: #fff;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 30px;
+}
+
+.Home .card:hover {
+    background-color: #9d4edd;
+}
+
+.Home .card .icon {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+}
