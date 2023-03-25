@@ -1,0 +1,38 @@
+.table-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.Table {
+    width: 100%;
+    overflow: auto;
+    border-collapse: collapse;
+}
+
+.Table td,
+.Table th {
+    border: 1px solid white;
+    padding: 15px 12px;
+}
+
+.Table th {
+    background-color: #8b8b8b;
+}
+
+.Table tr:nth-child(even) {
+    background-color: #424141;
+}
+
+.Table tbody tr:hover {
+    background-color: #7a3ecc;
+    cursor: pointer;
+}
+
+.Table td.profit {
+    background-color:#85d683;
+}
+
+.Table td.loss {
+    background-color: #ff808a;
+}

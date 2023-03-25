@@ -1,0 +1,34 @@
+.stocks {
+    padding: 10px 30px 30px;
+}
+
+.stocks .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.stocks .actions button {
+    display: flex;
+    align-items: center;
+    background-color: #7a3ecc;
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.stocks .actions button:hover {
+    background-color: #8b5fc9;
+}
+
+.stocks .actions button .icon {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
