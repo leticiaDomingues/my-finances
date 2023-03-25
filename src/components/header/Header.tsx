@@ -1,6 +1,8 @@
+import "./Header.css";
+
 const Header = () => {
     return (
-        <header>header</header>
+        <header>My Finances</header>
     );
 };
 

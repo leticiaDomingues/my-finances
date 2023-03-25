@@ -4,16 +4,17 @@ import { AiOutlineLineChart } from "react-icons/ai";
 import { SlWallet } from "react-icons/sl";
 import { MdOutlineSavings } from "react-icons/md";
 import { BiBuildingHouse, BiCreditCard } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
     return (
-        <div className="Home">
+        <div className="home">
             <div className="cards-wrapper">
-                <div className="card">
+                <Link to="/acoes" className="card">
                     <AiOutlineLineChart className="icon"/>
                     Ações
-                </div>
+                </Link>
                 <div className="card">
                     <MdOutlineSavings className="icon"/>
                     Renda Fixa

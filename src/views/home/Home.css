@@ -1,4 +1,4 @@
-.Home {
+.home {
     height: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -6,7 +6,7 @@
     justify-content: center;
 }
 
-.Home .cards-wrapper {
+.home .cards-wrapper {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -14,25 +14,25 @@
     padding: 10px;
 }
 
-.Home .card {
-    width: 350px;
-    height: 120px;
+.home .card {
+    width: 400px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     background-color: #5a189a;
     color: #fff;
-    margin: 10px;
+    margin: 20px;
     cursor: pointer;
     border-radius: 5px;
     font-size: 30px;
 }
 
-.Home .card:hover {
+.home .card:hover {
     background-color: #9d4edd;
 }
 
-.Home .card .icon {
+.home .card .icon {
     width: 100px;
     height: 100px;
     margin: 10px;

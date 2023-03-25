@@ -1,8 +1,6 @@
-.App {
-  background-color: #10002b;
+.app {
+  background-color: #1a1b23;
+  color: #fff;
   height: 100vh;
-}
-
-* {
-  box-sizing: border-box;
+  overflow: scroll;
 }
