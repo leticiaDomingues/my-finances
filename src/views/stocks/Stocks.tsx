@@ -1,6 +1,7 @@
 import "./Stocks.css";
 import Table from "../../components/table/Table";
 import { MdHistory, MdAdd } from "react-icons/md";
+import StocksData, { StocksHeaders } from "../../data/stocks";
 
 const Stocks = () => {
     return (
@@ -16,7 +17,7 @@ const Stocks = () => {
                     Nova entrada
                 </button>
             </div>
-            <Table />
+            <Table headers={StocksHeaders} data={StocksData}/>
         </div>
     );
 };
