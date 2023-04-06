@@ -14,7 +14,9 @@ interface Stock {
 
 enum Category {
     BANKS = 'Bancos',
-    ENERGY = 'Energia'
+    ENERGY = 'Energia',
+    FINANTIAL = 'Financeiro',
+    CONSUMPTION_RETAIL = 'Consumo e Varejo'
 }
 
 const StocksData = [
@@ -27,7 +29,7 @@ const StocksData = [
         avgCurrentPrice: 7.85,
         totalPurchasePrice: 2470.18,
         totalCurrentPrice: 1774.10,
-        profitLoss: -696.08
+        profitLoss: -682.52
     } as Stock,
     {
         ticker: 'CPLE6',
@@ -38,7 +40,18 @@ const StocksData = [
         avgCurrentPrice: 6.72,
         totalPurchasePrice: 868.00,
         totalCurrentPrice: 940.80,
-        profitLoss: 72.80
+        profitLoss: 98.0
+    } as Stock,
+    {
+        ticker: 'BBAS3',
+        name: 'Banco do Brasil',
+        category: Category.BANKS,
+        qty: 100,
+        avgPurchasePrice: 31.82,
+        avgCurrentPrice: 37.87,
+        totalPurchasePrice: 3182.00,
+        totalCurrentPrice: 3787.00,
+        profitLoss: 605.00
     } as Stock
 ];
 

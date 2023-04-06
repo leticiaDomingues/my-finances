@@ -17,18 +17,18 @@ const Table = (props: TableProps) => {
             <table className="Table">
                 <thead>
                     <tr>
-                        { headers.map(h =><th>{h.label}</th>) }
+                        { headers.map(h =><th key={h.key}>{h.label}</th>) }
                     </tr>
                 </thead>
                 <tbody>
                     {
                         data.map(d =>(
-                            <tr>
+                            <tr key={d.ticker}>
                                 {
                                     headers.map(h => {
                                         const value = h.formatter ? h.formatter(d[h.key]) : d[h.key];
                                         const className = h.conditionalClass ? h.conditionalClass(d[h.key]) : "";
-                                        return ( <td className={className}>{value}</td> );
+                                        return ( <td key={d.ticker+h.key} className={className}>{value}</td> );
                                     })
                                 }
                             </tr>
