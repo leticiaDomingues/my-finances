@@ -55,7 +55,7 @@ const StocksData = [
     } as Stock
 ];
 
-const isProfitOrLossClass = (num: number) => 
+export const isProfitOrLossClass = (num: number) => 
     num >= 0 ? 'profit' : 'loss';
 
 export const StocksHeaders = [
