@@ -1,6 +1,6 @@
 import { currencyFormatter } from "../utils/formatter";
 
-interface Stock {
+export interface Stock {
     ticker: string;
     name: string;
     category: Category;
@@ -19,7 +19,7 @@ enum Category {
     CONSUMPTION_RETAIL = 'Consumo e Varejo'
 }
 
-const StocksData = [
+const StocksWallet = [
     {
         ticker: 'ITSA4',
         name: 'Itaúsa',
@@ -69,4 +69,4 @@ export const StocksHeaders = [
     { key: 'totalCurrentPrice', label: 'Preço total atual', formatter: currencyFormatter},
     { key: 'profitLoss', label: 'Lucro/prejuízo', formatter: currencyFormatter, conditionalClass: isProfitOrLossClass}
 ];
-export default StocksData;
+export default StocksWallet;
