@@ -1,0 +1,33 @@
+.balance {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.balance .card {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    padding: 20px 15px;
+    background-color: #424141;
+}
+
+.balance .card:nth-child(1) {
+    margin-left: 0;
+}
+
+.balance .card:nth-child(3) {
+    margin-right: 0;
+}
+
+.balance .card p {
+    margin: 0;
+}
+
+.balance .card p:nth-child(2){
+    font-size: 25px;
+    color: #7a3ecc;
+}
