@@ -9,14 +9,16 @@ import axios from "axios";
 import BalancePanel from "../../components/balance-panel/BalancePanel";
 import NewButton from "../../components/new-button/NewButton";
 import HistoryButton from "../../components/history-button/HistoryButton";
+import NewPurchaseModal from "../../components/new-purchase-modal/NewPurchaseModal";
 
 const Stocks = () => {
     const [ stocks, setStocks ] = useState([...StocksWallet] as Stock[]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const totalPurchasePrice = stocks.map(d => d.totalPurchasePrice).reduce((acc, curr) => acc + curr, 0);
     const totalCurrentPrice = stocks.map(d => d.totalCurrentPrice).reduce((acc, curr) => acc + curr, 0);
     const profitOrLoss = totalCurrentPrice - totalPurchasePrice;
-
+    
     const balance = [
         { label: 'Preço total de compra:', value: totalPurchasePrice, formatter: currencyFormatter },
         { label: 'Preço total atual:', value: totalCurrentPrice, formatter: currencyFormatter },
@@ -58,6 +60,10 @@ const Stocks = () => {
         console.log('Todo: show stocks history.');
     }
 
+    // Modal controllers
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
     return (
         <div className="stocks">
             <h1>Balanço geral de ações</h1>
@@ -66,9 +72,10 @@ const Stocks = () => {
                 <ImportButton onLoad={updateStocksInformation}/>
                 <ExportButton fileName={new Date().toISOString().split('.')[0]+'-stocks'} data={stocks} />
                 <HistoryButton onClick={showHistory}></HistoryButton>
-                <NewButton onClick={addNewStock} />
+                <NewButton onClick={openModal} />
             </div>
             <Table headers={StocksHeaders} data={stocks}/>
+            <NewPurchaseModal title='Registro de nova compra' subtitle='Cada registro é referente a uma ação de cada vez' isOpen={isModalOpen} closeModal={closeModal} />
         </div>
     );
 };

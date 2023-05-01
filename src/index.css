@@ -1,3 +1,6 @@
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -21,4 +24,26 @@ code {
 
 a {
   text-decoration: none;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  background-color: #7a3ecc;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #8b5fc9;
+}
+
+.icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
 }
