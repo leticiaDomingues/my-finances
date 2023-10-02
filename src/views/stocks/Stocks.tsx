@@ -10,10 +10,12 @@ import BalancePanel from "../../components/balance-panel/BalancePanel";
 import NewButton from "../../components/new-button/NewButton";
 import HistoryButton from "../../components/history-button/HistoryButton";
 import NewPurchaseModal from "../../components/new-purchase-modal/NewPurchaseModal";
+import ReactLoading from 'react-loading';
 
 const Stocks = () => {
     const [ stocks, setStocks ] = useState([] as Stock[]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const totalPurchasePrice = stocks.map(d => d.totalPurchasePrice).reduce((acc, curr) => acc + curr, 0);
     const totalCurrentPrice = stocks.map(d => d.totalCurrentPrice).reduce((acc, curr) => acc + curr, 0);
@@ -31,6 +33,7 @@ const Stocks = () => {
 
     const updateStocksInformation = async (newStocks: Stock[]) => {
         const updatedStocks = [];
+        setIsLoading(true);
         for (const newStock of newStocks) {
             const res = await getStockInfo(newStock.ticker);
             const stockInfo = res.data.results[0];
@@ -45,15 +48,17 @@ const Stocks = () => {
             } as Stock);
         }
         setStocks(updatedStocks);
+        setIsLoading(false);
     }
 
+
+    // Due to this API limitation, we need to call the API one time for each stock ticker
     const getStockInfo = (ticker: string) => {
         const token = '?token=wgJNcSMyUNWbVUN16qPK8a';
         return axios.get(`https://brapi.dev/api/quote/${ticker}${token}`);
     }
 
     const addNewStock = (stock: Stock) => {
-        console.log(stock);
         const existentStock = stocks.find(s => s.ticker === stock.ticker);
         if (existentStock) {
             existentStock.qty += stock.qty;
@@ -83,7 +88,12 @@ const Stocks = () => {
                 <HistoryButton onClick={showHistory}></HistoryButton>
                 <NewButton onClick={openModal} />
             </div>
-            <Table headers={StocksHeaders} data={stocks}/>
+            { !isLoading && <Table headers={StocksHeaders} data={stocks}/> }
+            { isLoading && 
+                <div className="loading">
+                    <ReactLoading type='spinningBubbles' color='#ffffff' width={80} />
+                </div>
+            }
             <NewPurchaseModal
                 title='Registro de nova compra'
                 subtitle='Cada registro é referente a uma ação de cada vez'
