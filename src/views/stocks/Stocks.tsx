@@ -12,7 +12,7 @@ import HistoryButton from "../../components/history-button/HistoryButton";
 import NewPurchaseModal from "../../components/new-purchase-modal/NewPurchaseModal";
 
 const Stocks = () => {
-    const [ stocks, setStocks ] = useState([...StocksWallet] as Stock[]);
+    const [ stocks, setStocks ] = useState([] as Stock[]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const totalPurchasePrice = stocks.map(d => d.totalPurchasePrice).reduce((acc, curr) => acc + curr, 0);
@@ -26,34 +26,43 @@ const Stocks = () => {
     ];
 
     useEffect(() => {
-        updateStocksInformation(stocks);
+        updateStocksInformation([...StocksWallet]);
     }, []);
 
-    const updateStocksInformation = (stocks: Stock[]) => {
-        const stockTickers = stocks.map(s => s.ticker).join(',');
-        axios.get(`https://brapi.dev/api/quote/${stockTickers}`)
-            .then(res => {
-                const response = res.data.results;
-                const updatedStocks = stocks.map(s => {
-                    const stockInfo = response.find((r: any) => s.ticker === r.symbol);
-                    if (stockInfo) {
-                        const totalCurrentPrice = stockInfo.regularMarketPrice * s.qty;
-                        return {
-                            ...s,
-                            name: stockInfo.longName,
-                            avgCurrentPrice: stockInfo.regularMarketPrice,
-                            totalCurrentPrice: totalCurrentPrice,
-                            profitLoss: totalCurrentPrice - s.totalPurchasePrice
-                        } as Stock;
-                    }
-                    return {...s} as Stock;
-                });
-                setStocks(updatedStocks);
-            });
+    const updateStocksInformation = async (newStocks: Stock[]) => {
+        const updatedStocks = [];
+        for (const newStock of newStocks) {
+            const res = await getStockInfo(newStock.ticker);
+            const stockInfo = res.data.results[0];
+
+            const totalCurrentPrice = stockInfo.regularMarketPrice * newStock.qty;
+            updatedStocks.push({
+                ...newStock,
+                name: stockInfo.longName,
+                avgCurrentPrice: stockInfo.regularMarketPrice,
+                totalCurrentPrice: totalCurrentPrice,
+                profitLoss: totalCurrentPrice - newStock.totalPurchasePrice
+            } as Stock);
+        }
+        setStocks(updatedStocks);
     }
 
-    const addNewStock = () => {
-        console.log('Todo: add new stock.');
+    const getStockInfo = (ticker: string) => {
+        const token = '?token=wgJNcSMyUNWbVUN16qPK8a';
+        return axios.get(`https://brapi.dev/api/quote/${ticker}${token}`);
+    }
+
+    const addNewStock = (stock: Stock) => {
+        console.log(stock);
+        const existentStock = stocks.find(s => s.ticker === stock.ticker);
+        if (existentStock) {
+            existentStock.qty += stock.qty;
+            existentStock.totalPurchasePrice += (stock.qty * stock.totalPurchasePrice);
+            existentStock.avgPurchasePrice = existentStock.totalPurchasePrice / existentStock.qty;
+        } else {
+            updateStocksInformation([...stocks, stock]);
+        }
+        closeModal();
     }
 
     const showHistory = () => {
@@ -75,7 +84,12 @@ const Stocks = () => {
                 <NewButton onClick={openModal} />
             </div>
             <Table headers={StocksHeaders} data={stocks}/>
-            <NewPurchaseModal title='Registro de nova compra' subtitle='Cada registro é referente a uma ação de cada vez' isOpen={isModalOpen} closeModal={closeModal} />
+            <NewPurchaseModal
+                title='Registro de nova compra'
+                subtitle='Cada registro é referente a uma ação de cada vez'
+                isOpen={isModalOpen}
+                newPurchase={addNewStock}
+                closeModal={closeModal} />
         </div>
     );
 };

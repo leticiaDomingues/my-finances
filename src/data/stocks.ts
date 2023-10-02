@@ -12,7 +12,7 @@ export interface Stock {
     profitLoss: number;
 }
 
-enum Category {
+export enum Category {
     BANKS = 'Bancos',
     ENERGY = 'Energia',
     FINANTIAL = 'Financeiro',
