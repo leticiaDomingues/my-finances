@@ -3,6 +3,7 @@ import "./Table.css";
 interface TableProps {
     headers: Header[];
     data: any[];
+    onLineClicked: (l: any) => void;
 }
 interface Header {
     key: string;
@@ -11,7 +12,7 @@ interface Header {
     formatter?: (d: any) => any;
 }
 const Table = (props: TableProps) => {
-    const { headers, data } = props; 
+    const { headers, data, onLineClicked } = props; 
     return (
         <div className="table-wrapper">
             <table className="Table">
@@ -23,7 +24,7 @@ const Table = (props: TableProps) => {
                 <tbody>
                     {
                         data.map(d =>(
-                            <tr key={d.ticker}>
+                            <tr key={d.ticker} onClick={onLineClicked ? (_) => onLineClicked(d) : (_) => {}}>
                                 {
                                     headers.map(h => {
                                         const value = h.formatter ? h.formatter(d[h.key]) : d[h.key];

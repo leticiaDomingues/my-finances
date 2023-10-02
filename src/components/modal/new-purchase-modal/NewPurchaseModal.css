@@ -1,0 +1,48 @@
+.new-purchase form {
+    margin: 20px 0;
+}
+
+.new-purchase .buttons-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.new-purchase .buttons-wrapper button,
+.new-purchase .buttons-wrapper input[type="submit"] {
+    margin-left: 10px;
+}
+
+.new-purchase input:not(input[type="submit"]),
+.new-purchase select {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+.new-purchase input:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #7a3ecc;
+    outline-width: 0;
+    transition: All 0.5s ease-in;
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+}
+
+.new-purchase input.error,
+.new-purchase select.error {
+    border-color: red !important;
+}
+
+.new-purchase input.error::placeholder,
+.new-purchase select.error::placeholder {
+    color: red !important;
+}

@@ -8,13 +8,14 @@ import ImportButton from "../../components/import-button/ImportButton";
 import axios from "axios";
 import BalancePanel from "../../components/balance-panel/BalancePanel";
 import NewButton from "../../components/new-button/NewButton";
-import HistoryButton from "../../components/history-button/HistoryButton";
-import NewPurchaseModal from "../../components/new-purchase-modal/NewPurchaseModal";
+import NewPurchaseModal from "../../components/modal/new-purchase-modal/NewPurchaseModal";
 import ReactLoading from 'react-loading';
+import InfoModal from "../../components/modal/info-modal/InfoModal";
 
 const Stocks = () => {
     const [ stocks, setStocks ] = useState([] as Stock[]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isNewPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
+    const [selectedStock, setSelectedStock] = useState<Stock>();
     const [isLoading, setIsLoading] = useState(false);
 
     const totalPurchasePrice = stocks.map(d => d.totalPurchasePrice).reduce((acc, curr) => acc + curr, 0);
@@ -67,16 +68,32 @@ const Stocks = () => {
         } else {
             updateStocksInformation([...stocks, stock]);
         }
-        closeModal();
+        closeNewPurchaseModal();
     }
 
-    const showHistory = () => {
-        console.log('Todo: show stocks history.');
-    }
+    // New purchase modal controllers
+    const openNewPurchaseModal = () => setIsPurchaseModalOpen(true);
+    const closeNewPurchaseModal = () => setIsPurchaseModalOpen(false);
 
-    // Modal controllers
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+
+    // Info modal controllers
+    const openInfoModal = (stock: Stock) => setSelectedStock(stock);
+    const closeInfoModal = () => setSelectedStock(undefined);
+    const isInfoModalOpen = !!selectedStock;
+    const sellStock = (stock: Stock, qty: number) => {
+        const indexOf = stocks.findIndex(s => s.ticker === stock.ticker);
+
+        if (stock.qty <= qty) {
+            stocks.splice(indexOf, 1);
+            updateStocksInformation(stocks);
+        } else {
+            stocks[indexOf].qty -= qty;
+            stocks[indexOf].totalPurchasePrice = stocks[indexOf].qty * stocks[indexOf].avgPurchasePrice;
+            updateStocksInformation([...stocks]);
+        }
+        closeInfoModal();
+    }
+     
 
     return (
         <div className="stocks">
@@ -85,10 +102,9 @@ const Stocks = () => {
             <div className="actions">
                 <ImportButton onLoad={updateStocksInformation}/>
                 <ExportButton fileName={new Date().toISOString().split('.')[0]+'-stocks'} data={stocks} />
-                <HistoryButton onClick={showHistory}></HistoryButton>
-                <NewButton onClick={openModal} />
+                <NewButton onClick={openNewPurchaseModal} />
             </div>
-            { !isLoading && <Table headers={StocksHeaders} data={stocks}/> }
+            { !isLoading && <Table headers={StocksHeaders} data={stocks} onLineClicked={openInfoModal }/> }
             { isLoading && 
                 <div className="loading">
                     <ReactLoading type='spinningBubbles' color='#ffffff' width={80} />
@@ -97,9 +113,17 @@ const Stocks = () => {
             <NewPurchaseModal
                 title='Registro de nova compra'
                 subtitle='Cada registro é referente a uma ação de cada vez'
-                isOpen={isModalOpen}
+                isOpen={isNewPurchaseModalOpen}
                 newPurchase={addNewStock}
-                closeModal={closeModal} />
+                closeModal={closeNewPurchaseModal} />
+            <InfoModal 
+                title={selectedStock?.ticker ?? 'Informação'}
+                subtitle={selectedStock?.name ?? 'Detalhes da ação da carteira'}
+                isOpen={isInfoModalOpen}
+                closeModal={closeInfoModal}
+                item = { selectedStock ?? {} as Stock }
+                sellItem={sellStock}
+            />
         </div>
     );
 };

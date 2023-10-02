@@ -12,6 +12,17 @@
     margin-bottom: 20px;
 }
 
+@media screen and (max-width: 778px) {
+    .stocks .balance {
+        flex-direction: column;
+    }
+
+    .stocks .balance .card {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
 .stocks .actions button {
     margin-left: 10px;
 }

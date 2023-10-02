@@ -1,0 +1,50 @@
+.info-modal .buttons-wrapper {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.info-modal .buttons-wrapper .delete {
+    background-color: #f96470;
+}
+.info-modal .buttons-wrapper .delete:hover {
+    background-color: #ff808a;
+}
+
+.info-modal .buttons-wrapper .sell-wrapper {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.info-modal .buttons-wrapper .sell-wrapper button{
+    margin-left: 0;
+}
+
+.info-modal .buttons-wrapper .sell-wrapper  input[type="number"]{
+    border: none;
+    width: 95px;
+}
+
+.info-modal .cards-wrapper {
+    display: flex;
+}
+
+.info-modal .cards-wrapper .card {
+    flex: 1;
+    margin: 0 10px;
+    background-color: #424141;
+    padding: 10px;
+}
+
+.info-modal .cards-wrapper .card:first-of-type {
+    margin-left: 0;
+}
+.info-modal .cards-wrapper .card:last-of-type {
+    margin-right: 0;
+}
+
+.info-modal .cards-wrapper .card .value {
+    font-size: 25px;
+    margin-top: 0;
+}

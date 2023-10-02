@@ -1,0 +1,48 @@
+.modal {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: #1a1b23;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 600px;
+}
+
+.modal .close-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal .close-button button {
+    text-decoration: none;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.modal h2 {
+    margin: 0;
+}
+
+.modal .title {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.modal .subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
